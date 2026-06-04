@@ -1,0 +1,47 @@
+{
+  "model_name": "CareerPathPredictor",
+  "n_features": 10,
+  "n_classes": 10,
+  "feature_columns": [
+    "Q1",
+    "Q2",
+    "Q3",
+    "Q4",
+    "Q5",
+    "Q6",
+    "Q7",
+    "Q8",
+    "Q9",
+    "Q10"
+  ],
+  "career_labels": [
+    "Business Analyst",
+    "Cloud Engineer",
+    "Content Creator",
+    "Cybersecurity Analyst",
+    "Data Analyst",
+    "Digital Marketer",
+    "Machine Learning Engineer",
+    "Project Manager",
+    "Software Engineer",
+    "UI/UX Designer"
+  ],
+  "question_labels": {
+    "Q1": "Kemampuan Coding / Pemrograman",
+    "Q2": "Analisis Data & Statistik",
+    "Q3": "Kreativitas & Desain Visual",
+    "Q4": "Komunikasi & Presentasi",
+    "Q5": "Keamanan Sistem & Jaringan",
+    "Q6": "Manajemen Proyek & Kepemimpinan",
+    "Q7": "Pembuatan Konten & Media Sosial",
+    "Q8": "Bisnis & Strategi",
+    "Q9": "Infrastruktur Cloud & DevOps",
+    "Q10": "Machine Learning & AI"
+  },
+  "total_params": 263050,
+  "test_accuracy": 0.8700565099716187,
+  "test_mae": 0.04177452251315117,
+  "keras_path": "model_artifacts/career_predictor.keras",
+  "saved_model_path": "model_artifacts/career_predictor_savedmodel",
+  "created_at": "2026-05-29T13:32:58.142734"
+}

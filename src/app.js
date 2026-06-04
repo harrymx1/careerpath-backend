@@ -10,6 +10,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors()); // Mengizinkan akses dari domain luar (penting untuk integrasi frontend)
 app.use(express.json()); // Agar server bisa membaca data berformat JSON dari body request
 
+// API Routes
+const apiRoutes = require('./routes/api');
+app.use('/api', apiRoutes);
+
 // Base Route untuk testing
 app.get('/', (req, res) => {
   res.json({
