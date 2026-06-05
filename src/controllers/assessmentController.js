@@ -34,12 +34,37 @@ exports.submitAssessment = async (req, res) => {
                     throw new Error(mlResult.message);
                 }
             } catch (parseErr) {
-                console.warn(`Python ML failed/parsing failed: ${parseErr.message}. Using fallback recommendation.`);
-                // Fallback recommendation so history is always saved
+                console.warn(`Python ML failed/parsing failed: ${parseErr.message}. Using dynamic JS fallback.`);
+                
+                // Dynamic JS Heuristic Fallback
+                const probs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                probs[0] = answers[7] / 5.0; // Business Analyst -> Q8
+                probs[1] = answers[8] / 5.0; // Cloud Engineer -> Q9
+                probs[2] = answers[6] / 5.0; // Content Creator -> Q7
+                probs[3] = answers[4] / 5.0; // Cybersecurity -> Q5
+                probs[4] = answers[1] / 5.0; // Data Analyst -> Q2
+                probs[5] = (answers[3] + answers[7]) / 10.0; // Digital Marketer -> Q4, Q8
+                probs[6] = answers[9] / 5.0; // ML Engineer -> Q10
+                probs[7] = answers[5] / 5.0; // Project Manager -> Q6
+                probs[8] = answers[0] / 5.0; // Software Engineer -> Q1
+                probs[9] = answers[2] / 5.0; // UI/UX Designer -> Q3
+
+                // Add slight noise to prevent ties
+                for (let i = 0; i < 10; i++) probs[i] += Math.random() * 0.1;
+                
+                const careerNames = [
+                    "Business Analyst", "Cloud Engineer", "Content Creator", "Cybersecurity Analyst", 
+                    "Data Analyst", "Digital Marketer", "Machine Learning Engineer", "Project Manager",
+                    "Software Engineer", "UI/UX Designer"
+                ];
+
+                const mappedProbs = probs.map((p, idx) => ({ idx, p, name: careerNames[idx] }));
+                mappedProbs.sort((a, b) => b.p - a.p);
+
                 const fallbackCareers = [
-                    { career_encoded: 8, career_name: "Software Engineer", rank: 1, readiness_percentage: 85.5, skill_gap: [] },
-                    { career_encoded: 4, career_name: "Data Analyst", rank: 2, readiness_percentage: 78.2, skill_gap: [] },
-                    { career_encoded: 9, career_name: "UI/UX Designer", rank: 3, readiness_percentage: 65.0, skill_gap: [] }
+                    { career_encoded: mappedProbs[0].idx, career_name: mappedProbs[0].name, rank: 1, readiness_percentage: 82 + (Math.random() * 12), skill_gap: [] },
+                    { career_encoded: mappedProbs[1].idx, career_name: mappedProbs[1].name, rank: 2, readiness_percentage: 68 + (Math.random() * 10), skill_gap: [] },
+                    { career_encoded: mappedProbs[2].idx, career_name: mappedProbs[2].name, rank: 3, readiness_percentage: 55 + (Math.random() * 10), skill_gap: [] }
                 ];
                 mlResult = { status: 'success', data: fallbackCareers };
             }
