@@ -4,6 +4,7 @@ const assessmentController = require('../controllers/assessmentController');
 
 // Assessment & Recommendation Routes
 router.post('/assessments', assessmentController.submitAssessment);
+router.post('/assessments/sync', assessmentController.syncGuestHistory);
 router.get('/profiles/:id/recommendations', assessmentController.getUserRecommendations);
 
 module.exports = router;
