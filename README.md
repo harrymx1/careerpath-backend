@@ -21,7 +21,7 @@ Ikuti langkah-langkah detail di bawah ini untuk meng-clone dan menjalankan proye
 ### 1. Clone Repositori
 Buka terminal Anda, lalu clone proyek ini dan masuk ke dalam foldernya:
 ```bash
-git clone <URL_REPOSITORY_ANDA>
+git clone https://github.com/harrymx1/careerpath-backend.git
 cd careerpath-ai-backend
 ```
 
